@@ -1,0 +1,36 @@
+:root {
+  --background: #111111;
+  --surface: #1a1a1a;
+  --accent: #888888;
+  --accent-secondary: #666666;
+  --text: #eeeeee;
+  --font: sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font);
+  transition: background 0.4s ease, color 0.4s ease, font-family 0.2s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1rem;
+}
