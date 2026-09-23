@@ -55,7 +55,8 @@
 .category-circle-btn:hover .category-circle {
   transform: translateY(-6px) scale(1.05);
   box-shadow: 0 0 40px color-mix(in srgb, var(--circle-accent) 55%, transparent);
-  
+
+}
 .category-name {
   font-size: 0.95rem;
   font-weight: 700;
@@ -63,7 +64,7 @@
   color: var(--circle-accent);
   text-shadow: 0 0 8px color-mix(in srgb, var(--circle-accent) 70%, transparent),
                0 0 16px color-mix(in srgb, var(--circle-accent) 40%, transparent);
-}}
+}
 
 
 
