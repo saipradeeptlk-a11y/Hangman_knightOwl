@@ -1,4 +1,4 @@
-import { WORD_CATEGORIES, CATEGORY_NAMES } from "../../data/words";
+import { WORD_CATEGORIES, CATEGORY_NAMES } from "../../data/word";
 import { Laptop, Flower2, Palmtree } from "lucide-react";
 import "./CategoryMenu.css";
 
