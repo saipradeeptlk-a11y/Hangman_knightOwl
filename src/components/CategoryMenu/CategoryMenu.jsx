@@ -1,4 +1,4 @@
-import { WORD_CATEGORIES, CATEGORY_NAMES } from "../../data/word";
+import { WORD_CATEGORIES, CATEGORY_NAMES } from "../../data/words";
 import { Laptop, Flower2, Palmtree } from "lucide-react";
 import "./CategoryMenu.css";
 
@@ -20,6 +20,7 @@ export function CategoryMenu({ onSelectCategory }) {
           const { theme } = WORD_CATEGORIES[name];
 
           return (
+            <div>
             <button
               key={name}
               className="category-circle-btn"
@@ -31,8 +32,11 @@ export function CategoryMenu({ onSelectCategory }) {
               <span className="category-circle">
                 <Icon size={36} strokeWidth={1.75} />
               </span>
-              <span className="category-name">{theme.label}</span>
+              
             </button>
+            <span className="category-name">{theme.label}</span>
+            </div>
+            
           );
         })}
       </div>
