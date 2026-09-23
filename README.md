@@ -2,7 +2,7 @@
 
 A themed Hangman game built for the Knight Owl intern challenge — random word selection, category-based visual themes, a full on-screen + physical keyboard, and a small backend for tracking stats.
 
-**Live demo:**https://hangman-knight-owl.vercel.app/ 
+**Live demo:** https://hangman-knight-owl.vercel.app/ 
 **Repo:** https://github.com/saipradeeptlk-a11y/Hangman_knightOwl
 
 ## What's in it
