@@ -28,10 +28,19 @@ function GameScreen({ category, onChangeCategory }) {
   const game = useHangmanGame(category);
   const label = WORD_CATEGORIES[category].theme.label;
   const [stats, setStats] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (game.isGameOver) {
       recordGameResult(game.isWinner).then(setStats);
+
+      const timer = setTimeout(() => {
+        setShowModal(true);
+      }, 1200);
+
+      return () => clearTimeout(timer);
+    } else {
+      setShowModal(false);
     }
   }, [game.isGameOver]);
 
@@ -55,7 +64,7 @@ function GameScreen({ category, onChangeCategory }) {
         ← Change Category
       </button>
 
-      {game.isGameOver && (
+      {showModal && (
         <GameOverModal
           isWinner={game.isWinner}
           word={game.word}
