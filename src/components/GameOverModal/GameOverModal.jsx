@@ -1,5 +1,6 @@
 import "./GameOverModal.css";
 
+
 export function GameOverModal({ isWinner, word, onRestart, onChangeCategory, stats }) {
   return (
     <div className="modal-overlay">

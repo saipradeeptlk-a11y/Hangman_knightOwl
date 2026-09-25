@@ -1,6 +1,17 @@
 export const WORD_CATEGORIES = {
   TechLanguages: {
-    words: ["JAVASCRIPT", "PYTHON", "JAVA", "TYPESCRIPT", "PHP", "RUBY", "SWIFT", "KOTLIN", "RUST", "GOLANG"],
+    words: [
+      { word: "JAVASCRIPT", hint: "A programming language widely used for web development" },
+      { word: "PYTHON", hint: "A popular programming language known for its simple syntax" },
+      { word: "JAVA", hint: "A programming language commonly used for enterprise applications" },
+      { word: "TYPESCRIPT", hint: "A typed programming language built on JavaScript" },
+      { word: "PHP", hint: "A server-side scripting language commonly used for websites" },
+      { word: "RUBY", hint: "A programming language known for its elegant syntax" },
+      { word: "SWIFT", hint: "Apple's programming language for iOS and macOS development" },
+      { word: "KOTLIN", hint: "A programming language widely used for Android development" },
+      { word: "RUST", hint: "A systems programming language focused on safety and performance" },
+      { word: "GOLANG", hint: "A programming language created at Google" },
+    ],
     theme: {
       label: "Tech & Languages",
       background: "#060b14",
@@ -11,8 +22,25 @@ export const WORD_CATEGORIES = {
       font: "'Space Mono', monospace",
     },
   },
+
   SriLanka: {
-    words: ["COLOMBO", "KANDY", "ANURADHAPURA", "GALLE", "JAFFNA", "NEGOMBO", "TRINCOMALEE", "BATTICALOA", "MATARA", "RATNAPURA", "KURUNEGALA", "BADULLA", "NUWARAELIYA", "DAMBULLA", "SIGIRIYA"],
+     words: [
+      { word: "COLOMBO", hint: "The commercial capital of Sri Lanka" },
+      { word: "KANDY", hint: "A historic city famous for the Temple of the Tooth" },
+      { word: "ANURADHAPURA", hint: "An ancient capital of Sri Lanka" },
+      { word: "GALLE", hint: "A coastal city famous for its historic Dutch Fort" },
+      { word: "JAFFNA", hint: "A major city in the northern part of Sri Lanka" },
+      { word: "NEGOMBO", hint: "A coastal city known for its fishing industry and beaches" },
+      { word: "TRINCOMALEE", hint: "A port city on the northeastern coast of Sri Lanka" },
+      { word: "BATTICALOA", hint: "A city on Sri Lanka's eastern coast" },
+      { word: "MATARA", hint: "A coastal city in southern Sri Lanka" },
+      { word: "RATNAPURA", hint: "A Sri Lankan city famous for gemstones" },
+      { word: "KURUNEGALA", hint: "A city known for its historic royal heritage" },
+      { word: "BADULLA", hint: "A city surrounded by the hills of Sri Lanka's Uva Province" },
+      { word: "NUWARAELIYA", hint: "A hill-country city known for tea plantations and cool weather" },
+      { word: "DAMBULLA", hint: "A city famous for its cave temple complex" },
+      { word: "SIGIRIYA", hint: "An ancient rock fortress in Sri Lanka" },
+    ],
     theme: {
       label: "Sri Lanka",
       background: "#1a0508",
@@ -23,8 +51,20 @@ export const WORD_CATEGORIES = {
       font: "'Cinzel', serif",
     },
   },
+
   Flowers: {
-    words: ["ROSE", "LOTUS", "JASMINE", "SUNFLOWER", "ORCHID", "TULIP", "LILY", "HIBISCUS", "DAISY", "MARIGOLD"],
+    words: [
+      { word: "ROSE", hint: "A flower often associated with love and affection" },
+      { word: "LOTUS", hint: "A water flower considered sacred in many cultures" },
+      { word: "JASMINE", hint: "A small fragrant flower often used for garlands" },
+      { word: "SUNFLOWER", hint: "A tall flower known for its large yellow head" },
+      { word: "ORCHID", hint: "An elegant flower with many colorful varieties" },
+      { word: "TULIP", hint: "A spring flower strongly associated with the Netherlands" },
+      { word: "LILY", hint: "A fragrant flower with trumpet-shaped varieties" },
+      { word: "HIBISCUS", hint: "A tropical flower commonly found in Sri Lankan gardens" },
+      { word: "DAISY", hint: "A flower with a yellow center and white petals" },
+      { word: "MARIGOLD", hint: "A bright flower commonly used in decorations and garlands" },
+    ],
     theme: {
       label: "Flowers",
       background: "#1a0f1c",

@@ -11,16 +11,19 @@ function pickRandomWord(category){
     return words[Math.floor(Math.random() * words.length)];
 }
 
+
+
 export function useHangmanGame(category){
     const [word , setWord] = useState(() => pickRandomWord(category));// So here the we use pickRandomWord(category) function to set the word
-    const [guessedLetters,setGuessedLetters] = useState(new Set()); 
+    const [guessedLetters,setGuessedLetters] = useState(new Set());
+    const [showHint,setIsHint] = useState(false) 
 
 const wrongGuesses = [...guessedLetters].filter(
-    (letter) => !word.includes(letter)
+    (letter) => !word.word.includes(letter)
   ); 
 
   const livesRemaining = MAX_WRONG_GUESSES - wrongGuesses.length;
-  const isWinner = [...word].every((letter) => guessedLetters.has(letter));//here the word is broken into array and each letter is checked with the guessed letter.
+  const isWinner = [...word.word].every((letter) => guessedLetters.has(letter));//here the word is broken into array and each letter is checked with the guessed letter.
   const isLoser = livesRemaining <= 0;
   const isGameOver = isWinner || isLoser;
 
