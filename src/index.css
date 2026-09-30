@@ -1,10 +1,9 @@
-:root {
-  --background: #111111;
-  --surface: #1a1a1a;
-  --accent: #888888;
-  --accent-secondary: #666666;
-  --text: #eeeeee;
-  --font: sans-serif;
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem 1rem;
 }
 
 * {

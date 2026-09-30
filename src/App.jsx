@@ -61,7 +61,7 @@ function GameScreen({ category, onChangeCategory }) {
       <header className="game-header">
         <span className="category-label">{label}</span>
         <span className="lives-label">❤️ {game.livesRemaining}</span>
-        <button onClick={()=>{setShowHintModal(true); }}> <Info size={24} strokeWidth={2} /> </button>
+        <button className="hint-btn" onClick={()=>{setShowHintModal(true); }}> <Info size={24} strokeWidth={2} /> </button>
 
       </header>
 
