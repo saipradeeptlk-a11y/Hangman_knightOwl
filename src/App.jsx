@@ -1,42 +1,82 @@
 import { CategoryMenu } from "./components/CategoryMenu/CategoryMenu";
-import { useTheme } from "./hooks/useTheme";
-import { Info } from "lucide-react";
+
+import { Info} from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useHangmanGame } from "./hooks/useHangmanGame";
 import { HangmanFigure } from "./components/HangmanFigure/HangmanFigure";
 import "./App.css";
+import { useTheme } from "./hooks/useTheme";
 import { WordDisplay } from "./components/WordDisplay/WordDisplay";
 import { Keyboard } from "./components/Keyboard/Keyboard";
 import { GameOverModal } from "./components/GameOverModal/GameOverModal";
 import { WORD_CATEGORIES } from "./data/word";
 import { useState, useEffect } from "react";
-import { recordGameResult } from "./services/api";
+import { recordGameResult,fetchStats } from "./services/api";
 import {Hint} from "./components/HintModal/HintModal";
+import { AuthForm } from "./components/AuthForm/AuthForm";
+import {useAuth} from "./hooks/useAuth";
+
 
 function App() {
 const[selectedCategory,setSelectedCategory] =  useState(null);
+const { user, token, login, logout } = useAuth();
+const [guestMode, setGuestMode] = useState(false);
+
 useTheme(selectedCategory);
+
+if(!user && guestMode === false){
+  return(<AuthForm
+  onAuthSuccess={(userData, tokenValue) => login(userData, tokenValue)}
+  onPlayAsGuest={() => setGuestMode(true)}
+/>)
+}
+
+
 if(!selectedCategory){
   return <CategoryMenu onSelectCategory={setSelectedCategory}/>;
 }
+
+
 return (
     <GameScreen
       category={selectedCategory}
       onChangeCategory={() => setSelectedCategory(null)}
+      user={user}
+      token={token}
+      onLogout={()=>logout()}
+
+      
     />
   );
 };
 
-function GameScreen({ category, onChangeCategory }) {
+function GameScreen({ category, onChangeCategory,user,token,onLogout }) {
   const game = useHangmanGame(category);
   const label = WORD_CATEGORIES[category].theme.label;
   const [stats, setStats] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showHint, setShowHintModal] = useState(false);
   const [lookedHint,setlookedHint] = useState(true);
+  
 
   useEffect(() => {
     if (game.isGameOver) {
-      recordGameResult(game.isWinner).then(setStats);
+      if (token) {
+    recordGameResult(token, {
+      category,
+      word: game.word.word,
+      won: game.isWinner,
+      wrongGuesses: game.wrongGuesses.length,
+    }).then(() => {
+  fetchStats(token).then(setStats);
+});
+  console.log({
+    category,
+    word: game.word.word,
+    won: game.isWinner,
+    wrongGuesses: game.wrongGuesses.length,
+  });
+}
 
       const timer = setTimeout(() => {
         setShowModal(true);
@@ -62,6 +102,7 @@ function GameScreen({ category, onChangeCategory }) {
         <span className="category-label">{label}</span>
         <span className="lives-label">❤️ {game.livesRemaining}</span>
         <button className="hint-btn" onClick={()=>{setShowHintModal(true); }}> <Info size={24} strokeWidth={2} /> </button>
+        <button className="hint-btn" onClick={()=>{ onLogout()}}><LogOut size={24} strokeWidth={2} /> </button>
 
       </header>
 

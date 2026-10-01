@@ -75,6 +75,18 @@ export const WORD_CATEGORIES = {
       font: "'Quicksand', sans-serif",
     },
   },
+
+  
 };
 
 export const CATEGORY_NAMES = Object.keys(WORD_CATEGORIES);
+
+export const DEFAULT_THEME = {
+    label: "Hangman",
+    background: "#111827",
+    surface: "#1f2937",
+    accent: "#60a5fa",
+    accentSecondary: "#818cf8",
+    text: "#f9fafb",
+    font: "'Poppins', sans-serif",
+};

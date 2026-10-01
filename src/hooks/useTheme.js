@@ -1,11 +1,15 @@
 import { useEffect } from "react";
-import { WORD_CATEGORIES } from "../data/word";
+import { WORD_CATEGORIES , DEFAULT_THEME} from "../data/word";
+
 
 export function useTheme(category) {
   useEffect(() => {
-    if (!category) return;
+    
 
-    const { theme } = WORD_CATEGORIES[category];
+    const theme = category
+      ? WORD_CATEGORIES[category].theme
+      : DEFAULT_THEME;
+
     const root = document.documentElement;
 
     root.style.setProperty("--background", theme.background);
