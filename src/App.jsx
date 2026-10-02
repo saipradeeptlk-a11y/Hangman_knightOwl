@@ -94,7 +94,8 @@ function GameScreen({ category, onChangeCategory,user,token,onLogout }) {
     }
   }, [game.isGameOver]);
 
-
+  // Wait for the word to load from the API before rendering the board
+  if (!game.word) return <p>Loading...</p>;
 
   return (
     <div className="game-screen">

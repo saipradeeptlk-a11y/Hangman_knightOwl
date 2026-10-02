@@ -1,44 +1,62 @@
-import { useState, useCallback } from "react";
-import { WORD_CATEGORIES } from "../data/word";
-
-
+import { useState, useCallback, useEffect, useRef } from "react";
 
 const MAX_WRONG_GUESSES = 6;
 
-//The function here is for the generation of the word so it uses the Math.random which generates a decimal number and it is multiplied by the lenght of the words array in order to main the range and rounded of using the Math.floor
-function pickRandomWord(category){
-    const words = WORD_CATEGORIES[category].words;
-    return words[Math.floor(Math.random() * words.length)];
+// Math.random() gives a decimal from 0 up to (not including) 1; multiplying by the
+// list length scales it to the list size, and Math.floor rounds down to a valid index.
+function pickRandomWord(data) {
+  return data[Math.floor(Math.random() * data.length)];
 }
 
+export function useHangmanGame(category) {
+  const [word, setWord] = useState();
+  const [guessedLetters, setGuessedLetters] = useState(new Set());
+  const [showHint, setIsHint] = useState(false);
+  const wordList = useRef([]); // keeps the fetched words between renders for restart
 
+  useEffect(() => {
+    async function loadDatabase() {
+      try {
+        const res = await fetch(`/api/words?category=${category}`);
+        if (!res.ok) throw new Error("Request failed");
+        const data = await res.json();
 
-export function useHangmanGame(category){
-    const [word , setWord] = useState(() => pickRandomWord(category));// So here the we use pickRandomWord(category) function to set the word
-    const [guessedLetters,setGuessedLetters] = useState(new Set());
-    const [showHint,setIsHint] = useState(false) 
+        wordList.current = data;
+        setWord(pickRandomWord(data));
+        setGuessedLetters(new Set());
+      } catch (err) {
+        console.error("Failed to load words:", err);
+      }
+    }
+    loadDatabase();
+  }, [category]);
 
-const wrongGuesses = [...guessedLetters].filter(
-    (letter) => !word.word.includes(letter)
-  ); 
+  const { word: w = "", hint } = word ?? {};
+
+  const wrongGuesses = [...guessedLetters].filter(
+    (letter) => !w.includes(letter)
+  );
 
   const livesRemaining = MAX_WRONG_GUESSES - wrongGuesses.length;
-  const isWinner = [...word.word].every((letter) => guessedLetters.has(letter));//here the word is broken into array and each letter is checked with the guessed letter.
+
+  // word !== undefined stops an empty word counting as a win before it loads
+  const isWinner =
+    word !== undefined && [...w].every((letter) => guessedLetters.has(letter));
   const isLoser = livesRemaining <= 0;
   const isGameOver = isWinner || isLoser;
 
   const guessLetter = useCallback(
     (letter) => {
-      if (isGameOver || guessedLetters.has(letter)) return; // ignore repeats or guesses after game ends
+      if (isGameOver || guessedLetters.has(letter)) return;
       setGuessedLetters((currentLetter) => new Set(currentLetter).add(letter));
     },
     [guessedLetters, isGameOver]
   );
 
   const restart = useCallback(() => {
-    setWord(pickRandomWord(category));
+    setWord(pickRandomWord(wordList.current));
     setGuessedLetters(new Set());
-  }, [category]);
+  }, []);
 
   return {
     word,
@@ -51,6 +69,4 @@ const wrongGuesses = [...guessedLetters].filter(
     guessLetter,
     restart,
   };
-
 }
-
