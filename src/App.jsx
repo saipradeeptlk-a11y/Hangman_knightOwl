@@ -2,6 +2,7 @@ import { CategoryMenu } from "./components/CategoryMenu/CategoryMenu";
 
 import { Info} from "lucide-react";
 import { LogOut } from "lucide-react";
+import { LogIn } from "lucide-react";
 import { useHangmanGame } from "./hooks/useHangmanGame";
 import { HangmanFigure } from "./components/HangmanFigure/HangmanFigure";
 import "./App.css";
@@ -24,11 +25,15 @@ const [guestMode, setGuestMode] = useState(false);
 
 useTheme(selectedCategory);
 
-if(!user && guestMode === false){
-  return(<AuthForm
+function fLogin(){
+return(<AuthForm
   onAuthSuccess={(userData, tokenValue) => login(userData, tokenValue)}
   onPlayAsGuest={() => setGuestMode(true)}
 />)
+}
+
+if(!user && guestMode === false){
+  return fLogin();
 }
 
 
@@ -44,19 +49,22 @@ return (
       user={user}
       token={token}
       onLogout={()=>logout()}
+      guestMode={guestMode}
+      setGuestMode={()=>setGuestMode(false)}
 
       
     />
   );
 };
 
-function GameScreen({ category, onChangeCategory,user,token,onLogout }) {
+function GameScreen({ category, onChangeCategory,user,token,onLogout,guestMode,setGuestMode}) {
   const game = useHangmanGame(category);
   const label = WORD_CATEGORIES[category].theme.label;
   const [stats, setStats] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showHint, setShowHintModal] = useState(false);
   const [lookedHint,setlookedHint] = useState(true);
+  
   
 
   useEffect(() => {
@@ -102,9 +110,15 @@ function GameScreen({ category, onChangeCategory,user,token,onLogout }) {
       <header className="game-header">
         <span className="category-label">{label}</span>
         <span className="lives-label">❤️ {game.livesRemaining}</span>
+        
         <button className="hint-btn" onClick={()=>{setShowHintModal(true); }}> <Info size={24} strokeWidth={2} /> </button>
+        
+        {guestMode ?
+        <button className="hint-btn" onClick={()=>{ setGuestMode()}}><LogIn size={24} strokeWidth={2} /> </button> :
         <button className="hint-btn" onClick={()=>{ onLogout()}}><LogOut size={24} strokeWidth={2} /> </button>
-
+        }
+        
+        
       </header>
 
       <HangmanFigure wrongCount={game.wrongGuesses.length} />
